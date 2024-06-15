@@ -18,13 +18,28 @@ class GithubPopularRepos extends Component {
     repositoryitemList: [],
     activeId: languageFiltersData[0].id,
     isLoading: true,
+    gotSelected: false,
   }
 
   componentDidMount() {
     this.getRepositoryList()
   }
 
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/api-failure-view.png"
+        alt="failure view"
+        className="failure-img"
+      />
+      <h1 className="failure-heading">Something Went Wrong</h1>
+    </div>
+  )
+
   getRepositoryList = async () => {
+    this.setState({
+      isLoading: true,
+    })
     const {repositoryitemList, activeId} = this.state
     const response = await fetch(
       `https://apis.ccbp.in/popular-repos?language=${activeId}`,
@@ -41,6 +56,8 @@ class GithubPopularRepos extends Component {
         starsCount: each.stars_count,
       }))
       this.setState({repositoryitemList: updatedData, isLoading: false})
+    } else {
+      this.renderFailureView()
     }
   }
 
@@ -50,25 +67,32 @@ class GithubPopularRepos extends Component {
     </div>
   )
 
+  onGetFilter = id =>
+    this.setState({activeId: id, gotSelected: true}, this.getRepositoryList)
+
   render() {
-    const {repositoryitemList, isLoading} = this.state
-    console.log(repositoryitemList)
+    const {repositoryitemList, isLoading, gotSelected} = this.state
     return (
       <div className="github-popular-repo-container">
         <h1 className="popular-heading">Popular</h1>
         <div className="language-filter-item-container">
           {languageFiltersData.map(each => (
-            <LanguageFilterItem languageFiltersData={each} key={each.id} />
+            <LanguageFilterItem
+              languageFiltersData={each}
+              key={each.id}
+              onGetFilter={this.onGetFilter}
+              gotSelected={gotSelected}
+            />
           ))}
         </div>
         {isLoading ? (
           this.renderLoader()
         ) : (
-          <div className="respository-item-container">
+          <ul className="respository-item-container">
             {repositoryitemList.map(each => (
               <RepositoryItem reposItemList={each} key={each.id} />
             ))}
-          </div>
+          </ul>
         )}
       </div>
     )
@@ -76,3 +100,4 @@ class GithubPopularRepos extends Component {
 }
 
 export default GithubPopularRepos
+
