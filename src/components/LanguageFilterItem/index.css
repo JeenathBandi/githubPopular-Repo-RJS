@@ -9,3 +9,10 @@
   margin: 15px;
   cursor: pointer;
 }
+.red-btn {
+  border-radius: 10px;
+  background-color: transparent;
+  color: #0284c7;
+  border-color: #0284c7;
+}
+
