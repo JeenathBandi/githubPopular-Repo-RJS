@@ -1,0 +1,19 @@
+/* Write your CSS here */
+.github-popular-repo-container {
+  display: flex;
+  flex-direction: column;
+}
+.popular-heading {
+  font-family: 'Lobster';
+
+  color: #0f172a;
+  text-align: center;
+}
+.language-filter-item-container {
+  display: flex;
+  justify-content: center;
+}
+.respository-item-container {
+  display: flex;
+  flex-wrap: wrap;
+}
