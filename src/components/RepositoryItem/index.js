@@ -13,11 +13,11 @@ const RepositoryItem = props => {
   } = reposItemList
 
   return (
-    <div className="repo-item">
+    <li className="repo-item">
       <img src={avatarUrl} alt={name} className="avatar-img" />
-      <p className="name">{name}</p>
+      <h1 className="name">{name}</h1>
       <div className="detail-container">
-        <div>
+        <div className="col-container">
           <img
             src="https://assets.ccbp.in/frontend/react-js/stars-count-img.png"
             alt="stars"
@@ -26,27 +26,28 @@ const RepositoryItem = props => {
           <p className="star-count">{starsCount}</p>
           <p className="star-count">stars</p>
         </div>
-        <div>
+        <div className="col-container">
           <img
             src="https://assets.ccbp.in/frontend/react-js/forks-count-img.png"
-            alt="stars"
+            alt="forks"
             className="star-img"
           />
           <p className="star-count">{forksCount}</p>
           <p className="star-count">forks</p>
         </div>
-        <div>
+        <div className="col-container">
           <img
             src="https://assets.ccbp.in/frontend/react-js/issues-count-img.png"
-            alt="stars"
+            alt="open issues"
             className="star-img"
           />
           <p className="star-count">{issuesCount}</p>
           <p className="star-count">open issues</p>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 
 export default RepositoryItem
+
